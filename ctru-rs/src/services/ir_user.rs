@@ -43,6 +43,7 @@ struct IrUserState {
 const REQUIRE_CONNECTION_COMMAND_HEADER: u32 = make_ipc_header(6, 1, 0);
 const DISCONNECT_COMMAND_HEADER: u32 = make_ipc_header(9, 0, 0);
 const GET_RECEIVE_EVENT_COMMAND_HEADER: u32 = make_ipc_header(10, 0, 0);
+const GET_SEND_EVENT_COMMAND_HEADER: u32 = make_ipc_header(10, 0, 0);
 const GET_CONNECTION_STATUS_EVENT_COMMAND_HEADER: u32 = make_ipc_header(12, 0, 0);
 const SEND_IR_NOP_COMMAND_HEADER: u32 = make_ipc_header(13, 1, 2);
 const INITIALIZE_IRNOP_SHARED_COMMAND_HEADER: u32 = make_ipc_header(24, 6, 2);
@@ -65,6 +66,7 @@ impl IrUser {
         recv_packet_count: usize,
         send_buffer_size: usize,
         send_packet_count: usize,
+        ir_baud_rate: usize,
     ) -> crate::Result<Self> {
         let service_reference = ServiceReference::new(
             &IR_USER_ACTIVE,
@@ -107,7 +109,7 @@ impl IrUser {
                     recv_packet_count as u32,
                     send_buffer_size as u32,
                     send_packet_count as u32,
-                    IR_BITRATE,
+                    ir_baud_rate as u32,
                     0,
                     shared_memory_handle,
                 ];
@@ -197,6 +199,15 @@ impl IrUser {
         let recv_event = response[3] as Handle;
 
         Ok(recv_event)
+    }
+
+    /// Get an event handle that activates when a packet is received.
+    pub fn get_send_event(&self) -> crate::Result<Handle> {
+        let response =
+            unsafe { self.send_service_request(vec![GET_SEND_EVENT_COMMAND_HEADER], 4) }?;
+        let send_event = response[3] as Handle;
+
+        Ok(send_event)
     }
 
     /// Circle Pad Pro specific request.
