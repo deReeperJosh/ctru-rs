@@ -100,6 +100,7 @@ impl<'screen> CirclePadProDemo<'screen> {
             PACKET_COUNT,
             PACKET_BUFFER_SIZE,
             PACKET_COUNT,
+            4,
         )
         .expect("Couldn't initialize ir:USER service");
         println!("ir:USER service initialized");

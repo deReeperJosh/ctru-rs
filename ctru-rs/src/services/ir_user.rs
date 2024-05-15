@@ -53,7 +53,6 @@ const RELEASE_RECEIVED_DATA_COMMAND_HEADER: u32 = make_ipc_header(25, 1, 0);
 const SHARED_MEM_INFO_SECTIONS_SIZE: usize = 0x30;
 const SHARED_MEM_RECV_BUFFER_OFFSET: usize = 0x20;
 const PAGE_SIZE: usize = 0x1000;
-const IR_BITRATE: u32 = 4;
 const PACKET_INFO_SIZE: usize = 8;
 const CIRCLE_PAD_PRO_INPUT_RESPONSE_PACKET_ID: u8 = 0x10;
 

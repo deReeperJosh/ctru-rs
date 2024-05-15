@@ -4,7 +4,7 @@
 
 use ctru::prelude::*;
 use ctru::services::gfx::{Flush, Swap};
-use ctru::services::ir_user::{CirclePadProInputResponse, ConnectionStatus, IrDeviceId, IrUser};
+use ctru::services::ir_user::{CirclePadProInputResponse, ConnectionStatus, IrUser};
 use ctru::services::svc::HandleExt;
 use ctru_sys::Handle;
 use std::time::Duration;
